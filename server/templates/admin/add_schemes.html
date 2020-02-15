@@ -1,0 +1,29 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='sb-admin-2.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <label for="SchemeName"><b>{{ form.name.label(class="SchemeName" ,style="font-size:25px;") }}
+            </b></label>
+        <div>
+            {{ form.name( style="margin-bottom:30px;width:500px;height:50px;font-size:30px;")}}
+        </div>
+        <label for="SchemeInfo"><b>{{ form.details.label( class="SchemeInfo" , style="
+        font-size:25px;
+        ")}}</b></label>
+        <div>
+            {{ form.details(style="width:500px;height:200px;font-size:30px;") }}
+        </div>
+    </fieldset>
+    <div>
+        {{ form.submit(style="margin:10px;padding:10px;") }}
+    </div>
+
+</form>
+{% endblock body %}

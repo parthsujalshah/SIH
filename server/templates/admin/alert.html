@@ -1,0 +1,35 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='sb-admin-2.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <label class="label" for="Subject"><b>{{ form.subject.label() }}</b></label>
+        <div>
+            {{ form.subject(id="Subject") }}
+        </div>
+        <label class="label" for="Details"><b>{{ form.details.label()}}</b></label>
+        <div>
+            {{ form.details(id="Details") }}
+        </div>
+        <label class="label" for="Specifics"><b>{{ form.specifics.label()}}</b></label>
+        <div>
+            {{ form.specifics(id="Specifics") }}
+        </div>
+        <label class="label" for="Severity"><b>{{ form.severity.label()}}</b></label>
+        <div>
+            {{ form.severity() }}
+        </div>
+        <br>
+    </fieldset>
+    <div>
+        {{ form.submit() }}
+    </div>
+    <br>
+</form>
+{% endblock body %}

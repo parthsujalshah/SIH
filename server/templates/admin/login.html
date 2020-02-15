@@ -1,0 +1,35 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <label for="username"><b>
+                <h2>{{ form.name.label() }}</h2>
+            </b></label>
+        <div style="margin-bottom: 40px;">
+            {{ form.name(style="width: 350px; height: 40px;background-color:#F7F9EB") }}
+        </div>
+        <label for="password"><b>
+                <h2>{{ form.password.label()}}</h2>
+            </b></label>
+        <div>
+            {{ form.password(style="width: 350px; height: 40px; margin-bottom:20px;background-color:#F7F9EB") }}
+        </div>
+        <label for="remember"><b> {{ form.remember.label()}}</b></label>
+        <div>
+            {{ form.remember}}
+        </div>
+    </fieldset>
+    <div>
+        {{ form.submit.label()}}
+        <br>
+        {{ form.submit() }}
+    </div>
+    </div>
+</form>
+{% endblock body %}

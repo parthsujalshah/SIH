@@ -1,0 +1,58 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+<form method="POST" action="" enctype="multipart/form-data">
+    <h1>Register Now!</h1>
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="name"><b>{{form.name.label}}</b></label>
+                {{form.name()}}
+            </div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="email"><b>{{form.email.label}}</b></label>
+                {{form.email()}}
+            </div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="designation"><b>{{form.designation.label}}</b></label>
+                {{form.designation()}}
+            </div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="password"><b>{{form.password.label}}</b></label>
+                {{form.password()}}
+            </div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="confirm_password"><b>{{form.confirm_password.label}}</b></label>
+                {{form.confirm_password()}}
+            </div>
+            <div style="
+                        margin: 20px;
+                    ">
+                <label for="gov_id"><b>{{form.gov_id.label}}</b></label>
+                {{form.gov_id()}}
+            </div>
+        </div>
+    </fieldset>
+    <div>
+        {{ form.submit.label()}}
+        {{ form.submit() }}
+        <br>
+        <a href="{{url_for('signin.index')}}">Already have an account? SignIn Here</a>
+    </div>
+</form>
+{% endblock body %}

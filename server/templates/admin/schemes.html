@@ -1,0 +1,22 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='sb-admin-2.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+{% for scheme in schemes %}
+<h1>Government Schemes</h1>
+<div class="container" id="id{{scheme.id%2+1}}">
+    <h3>{{scheme.name}}</h3>
+    <p>{{scheme.details}}</p>
+    <form action="{{url_for('delete_scheme', scheme_id=scheme.id)}}" method="POST">
+        <input type="submit" value="Delete">
+    </form>
+    <!-- <div class="but14" id="button">
+                    <button onclick="cont_delete"><i class="far fa-window-close"></i></button>
+                </div> -->
+</div>
+{% endfor %}
+{% endblock body %}

@@ -1,0 +1,36 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{super()}}
+{% endblock head_css %}
+
+{% block body %}
+{{super()}}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <label class="label" for="Subject"><b>{{ form.subject.label(class="Subject") }}</b></label>
+        <div>
+            {{ form.subject(id="Subject") }}
+        </div>
+        <label class="label" for="Details"><b>{{ form.details.label( class="Details")}}</b></label>
+        <div>
+            {{ form.details(id="Details") }}
+        </div>
+        <label class="label" for="Specifics"><b>{{ form.specifics.label( class="Specifics")}}</b></label>
+        <div>
+            {{ form.specifics(id="Specifics") }}
+        </div>
+        <label class="label" for="Severity"><b>{{ form.severity.label( class="Severity")}}</b></label>
+        <div>
+            {{ form.severity(id="Severity") }}
+        </div>
+        <br>
+    </fieldset>
+    <div>
+        {{ form.submit.label( class="button" ,style="font-size:20px;")}}
+        <br>
+        {{ form.submit(class="but1") }}
+    </div>
+    <br>
+</form>
+{% endblock body %}
