@@ -4,7 +4,7 @@ from flask import request, jsonify, Blueprint
 from server.static.utils import token_required
 from werkzeug.security import generate_password_hash, check_password_hash
 import nexmo
-from server.static.fertilizer_prediction import fertilizer_prediction
+# from server.static.fertilizer_prediction import fertilizer_prediction
 import jwt
 
 farmers_routes = Blueprint('farmer_routes', __name__)
@@ -36,7 +36,8 @@ def sign_up():
     client.send_message({
         'from': 'Nexmo',
         'to': '918920278726',
-        'text': f'Class of fertilizer: {fertilizer_prediction.fertilizer_prediction([0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1])}',
+        # 'text': f'Class of fertilizer: {fertilizer_prediction.fertilizer_prediction([0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1])}',
+        'text': 'Class of fertilizer:',
     })
     return jsonify({'password': password})
 
