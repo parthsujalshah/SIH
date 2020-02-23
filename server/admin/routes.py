@@ -1,7 +1,7 @@
 from server import app, db, current_user, bcrypt
 from server.models import AdminModel, MyModelView, Farmer, Crop, Buyer, Message, Scheme
 from flask_login import login_user, logout_user, login_required, current_user
-from server.forms import RegistrationForm, LoginForm, AlertForm, BuyerRegistrationForm, SchemeForm
+from server.admin.forms import RegistrationForm, LoginForm, AlertForm, BuyerRegistrationForm, SchemeForm
 from flask import render_template, redirect, request, url_for
 from flask_admin import BaseView, expose
 import nexmo
@@ -66,6 +66,7 @@ class AlertView(BaseView):
             })
         return self.render('admin/alert.html', form=form)
 admin.add_view(AlertView(name='Alert', endpoint='alert'))
+# admin.add_view(MyModelView(AlertView, db.session))
 
 @app.route('/delete_scheme/<int:scheme_id>', methods=['GET', 'POST'])
 @login_required

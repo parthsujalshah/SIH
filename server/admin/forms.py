@@ -18,12 +18,6 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-
-class SchemeForm(FlaskForm):
-    name = StringField('Scheme Name', validators=[DataRequired()])
-    details = TextAreaField('Scheme Details', validators=[DataRequired()])
-    submit = SubmitField('Add Scheme')
-
 class AlertForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     details = TextAreaField('Scheme Details', validators=[DataRequired()])
@@ -40,3 +34,8 @@ class BuyerRegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
+
+class SchemeForm(FlaskForm):
+    name = StringField('Scheme Name', validators=[DataRequired()])
+    details = TextAreaField('Scheme Details', validators=[DataRequired()])
+    submit = SubmitField('Add Scheme')

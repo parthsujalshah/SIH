@@ -1,7 +1,7 @@
 from server import db, app, login, admin, current_user
 from flask_login import UserMixin
 from flask_admin.contrib.sqla import ModelView
-from server.forms import RegistrationForm
+from server.admin.forms import RegistrationForm
 
 @login.user_loader
 def load_admin(admin_id):
