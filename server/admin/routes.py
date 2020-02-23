@@ -21,8 +21,6 @@ admin.add_link(MenuLink("Site", endpoint="signin.index"))
 class RegisterationView(BaseView):
     @expose('/', methods=['GET', 'POST'])
     def index(self):
-        if current_user.is_authenticated:
-            return redirect(url_for('home'))
         form = RegistrationForm()
         if form.validate_on_submit():
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -36,6 +34,8 @@ class RegisterationView(BaseView):
             db.session.add(admin)
             db.session.commit()
         return self.render('admin/register.html', form=form)
+    def is_accessible(self):
+        return current_user.is_authenticated
 admin.add_view(RegisterationView(name='Register', endpoint='register'))
 
 class LoginView(BaseView):
@@ -50,11 +50,12 @@ class LoginView(BaseView):
                 login_user(admin, remember=form.remember.data)
                 return redirect(url_for('home'))
         return self.render('admin/login.html', form=form)
+    def is_accessible(self):
+        return not current_user.is_authenticated
 admin.add_view(LoginView(name='Login', endpoint='signin'))
 
 class AlertView(BaseView):
     @expose('/', methods=['GET', 'POST'])
-    # @login_required
     def index(self):
         form = AlertForm()
         if form.validate_on_submit():
@@ -68,7 +69,15 @@ class AlertView(BaseView):
     def is_accessible(self):
         return current_user.is_authenticated
 admin.add_view(AlertView(name='Alert', endpoint='alert'))
-# admin.add_view(MyModelView(AlertView, db.session))
+
+class LogoutView(BaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def index(self):
+        logout_user()
+        return redirect(url_for('admin.index'))
+    def is_accessible(self):
+        return current_user.is_authenticated
+admin.add_view(LogoutView(name='Log Out', endpoint='log_out'))
 
 @app.route('/delete_scheme/<int:scheme_id>', methods=['GET', 'POST'])
 @login_required
@@ -80,10 +89,4 @@ def delete_scheme(scheme_id):
 
 @app.route('/')
 def home():
-    return redirect(url_for('admin.index'))
-
-@app.route('/log_out')
-@login_required
-def log_out():
-    logout_user()
     return redirect(url_for('admin.index'))
