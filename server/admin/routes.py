@@ -54,7 +54,7 @@ admin.add_view(LoginView(name='Login', endpoint='signin'))
 
 class AlertView(BaseView):
     @expose('/', methods=['GET', 'POST'])
-    @login_required
+    # @login_required
     def index(self):
         form = AlertForm()
         if form.validate_on_submit():
@@ -65,6 +65,8 @@ class AlertView(BaseView):
                 'text': 'Alert',
             })
         return self.render('admin/alert.html', form=form)
+    def is_accessible(self):
+        return current_user.is_authenticated
 admin.add_view(AlertView(name='Alert', endpoint='alert'))
 # admin.add_view(MyModelView(AlertView, db.session))
 
