@@ -1,5 +1,10 @@
 from server import app, db, current_user, bcrypt
-from server.models import AdminModel, MyModelView, Farmer, Crop, Buyer, Message, Scheme
+from server.models import MyModelView, Scheme
+from server.admin.models import AdminModel
+from server.messages.models import Message
+from server.buyer.models import Buyer, BuyerView
+from server.crops.models import Crop
+from server.farmers.models import Farmer
 from flask_login import login_user, logout_user, login_required, current_user
 from server.admin.forms import RegistrationForm, LoginForm, AlertForm, BuyerRegistrationForm, SchemeForm
 from flask import render_template, redirect, request, url_for
@@ -11,9 +16,8 @@ from flask_admin import Admin
 admin = Admin(app)
 
 
-admin.add_view(MyModelView(AdminModel, db.session))
 admin.add_view(MyModelView(Farmer, db.session))
-admin.add_view(MyModelView(Buyer, db.session))
+admin.add_view(BuyerView(Buyer, db.session))
 admin.add_view(MyModelView(Scheme, db.session))
 admin.add_link(MenuLink("Site", endpoint="signin.index"))
 
@@ -37,6 +41,25 @@ class RegisterationView(BaseView):
     def is_accessible(self):
         return current_user.is_authenticated
 admin.add_view(RegisterationView(name='Register', endpoint='register'))
+
+class RegisterBuyer(BaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def indef(self):
+        form = BuyerRegistrationForm()
+        if form.validate_on_submit():
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            buyer = Buyer(
+                username = form.username.data,
+                email = form.email.data,
+                password = hashed_password
+            )
+            db.session.add(buyer)
+            db.session.commit()
+            return redirect(url_for('admin.index'))
+        return self.render('admin/register_buyer.html', form=form)
+    def is_accessible(self):
+        return current_user.is_authenticated
+admin.add_view(RegisterBuyer(name='Register Buyer', endpoint='register_buyer'))
 
 class LoginView(BaseView):
     @expose('/', methods=['GET', 'POST'])

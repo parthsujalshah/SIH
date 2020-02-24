@@ -1,5 +1,6 @@
 from server import app, db
-from server.models import Message, Farmer
+from server.messages.models import Message
+from server.farmers.models import Farmer
 from flask import jsonify, request, Blueprint
 from server.static.utils import token_required
 

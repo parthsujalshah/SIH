@@ -1,5 +1,6 @@
 from server import app, db
-from server.models import Farmer, Scheme
+from server.models import Scheme
+from server.farmers.models import Farmer
 from flask import request, jsonify, Blueprint
 from server.static.utils import token_required
 from werkzeug.security import generate_password_hash, check_password_hash

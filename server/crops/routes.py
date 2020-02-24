@@ -1,5 +1,5 @@
 from server import app, db
-from server.models import Crop
+from server.crops.models import Crop
 from flask import jsonify, request, Blueprint
 from server.static.utils import token_required, save_image
 import threading

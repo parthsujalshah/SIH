@@ -1,9 +1,11 @@
 from flask import request, jsonify,Blueprint
 from server import app
-from server.models import Buyer, Farmer
+from server.buyer.models import Buyer
+from server.farmers.models import Farmer
+from server.buyer.models import Buyer
 from werkzeug.security import check_password_hash
 import jwt
-from server.static.utils import token_buyer_required
+from server.buyer.utils import token_buyer_required
 
 buyer_routes = Blueprint('buyer_routes', __name__)
 

@@ -9,7 +9,8 @@ import time
 import nexmo
 from server import app
 from flask import request, jsonify
-from server.models import Farmer, Buyer
+from server.farmers.models import Farmer
+from server.buyer.models import Buyer
 import jwt
 import nexmo
 
@@ -55,20 +56,3 @@ def save_image(base64_image):
     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
     image.save(picture_path)
     stream.close()
-
-def token_buyer_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = None
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
-        if not token:
-            return jsonify({'message': 'token is missing'}), 401
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-            _id = data['buyer_id']
-            current_buyer = Buyer.query.get(_id)
-        except:
-            return jsonify({'message': 'Token is Invalid!'}), 401
-        return f(current_buyer, *args, **kwargs)
-    return decorated
